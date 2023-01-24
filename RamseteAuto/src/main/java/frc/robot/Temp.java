@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 public class Temp {
-    double maxVelocity = 0.5;
-    double maxAcceleration = 0.5;
+    double maxVelocity = 1.5;
+    double maxAcceleration = 1.5;
     double maxVoltage = 10;
 
     public Command getSampleAutoCommand(){
@@ -39,6 +39,8 @@ TrajectoryConfig config =
         // Apply the voltage constraint
         .addConstraint(autoVoltageConstraint);
 
+config.setReversed(false);
+
 // An example trajectory to follow.  All units in meters.
 Trajectory exampleTrajectory =
     TrajectoryGenerator.generateTrajectory(
@@ -50,6 +52,8 @@ Trajectory exampleTrajectory =
         new Pose2d(3, 0, new Rotation2d(0)),
         // Pass config
         config);
+
+        
 
 RamseteCommand ramseteCommand =
     new RamseteCommand(

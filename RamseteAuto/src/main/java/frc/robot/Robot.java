@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private String pathString = "paths/tilda.wpilib.json";
+  private String pathString = "paths/STEMinism.wpilib.json";
   private Trajectory autoTrajectory = null;
 
   /**
@@ -67,7 +67,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    m_robotContainer.drivetrain.brake(false);
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -75,6 +77,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    m_robotContainer.drivetrain.brake(true);
+
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoTrajectory);
     m_autonomousCommand = new Temp().getSampleAutoCommand();
 
@@ -101,7 +105,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_robotContainer.drivetrain.resetGyro();
+    //m_robotContainer.drivetrain.resetGyro();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d());
   }
 

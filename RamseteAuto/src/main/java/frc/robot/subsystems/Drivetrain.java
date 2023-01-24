@@ -11,6 +11,7 @@ import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -113,6 +114,7 @@ public class Drivetrain extends SubsystemBase {
 
   public void resetOdometry(Pose2d resetPose){
     resetEncoders();
+    //resetGyro();
     odometry.resetPosition(resetPose, gyro.getRotation2d());
   }
 
@@ -125,13 +127,42 @@ public class Drivetrain extends SubsystemBase {
     rightMotorTwo.getSensorCollection().setIntegratedSensorPosition(0, 0);
   }
 
+  public void brake(boolean brake){
+    if (brake){
+      leftMotorOne.setNeutralMode(NeutralMode.Brake);
+      leftMotorTwo.setNeutralMode(NeutralMode.Brake);
+      leftMotorThree.setNeutralMode(NeutralMode.Brake);
+  
+      rightMotorOne.setNeutralMode(NeutralMode.Brake);
+      rightMotorTwo.setNeutralMode(NeutralMode.Brake);
+      rightMotorThree.setNeutralMode(NeutralMode.Brake);
+    }
+    else{
+      leftMotorOne.setNeutralMode(NeutralMode.Coast);
+      leftMotorTwo.setNeutralMode(NeutralMode.Coast);
+      leftMotorThree.setNeutralMode(NeutralMode.Coast);
+  
+      rightMotorOne.setNeutralMode(NeutralMode.Coast);
+      rightMotorTwo.setNeutralMode(NeutralMode.Coast);
+      rightMotorThree.setNeutralMode(NeutralMode.Coast);
+    }
+  }
+
   @Override
   public void periodic() {
     odometry.update(gyro.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
+    if (DriverStation.isAutonomousEnabled()){
+      DriverStation.reportWarning("Odomemtry Updated", false);
+    }
 
     SmartDashboard.putNumber("Gyro Rotation", gyro.getRotation2d().getDegrees());
-    SmartDashboard.putNumber("Odometry", odometry.getPoseMeters().getRotation().getDegrees());
+    SmartDashboard.putNumber("Odometry Rotation", odometry.getPoseMeters().getRotation().getDegrees());
     SmartDashboard.putNumber("X", odometry.getPoseMeters().getX());
     SmartDashboard.putNumber("Y", odometry.getPoseMeters().getY());
+
+    if (DriverStation.isAutonomousEnabled()){
+      DriverStation.reportWarning("ShuffleBoard Updated", false);
+    }
+
   }
 }

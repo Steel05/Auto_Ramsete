@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -26,12 +27,12 @@ public final class Constants {
     public static final int DRIVETRAIN_GYRO = 15;
 
     // Auto Values
-    public static final double AUTO_TRACK_WIDTH_METERS = 1.0631;
+    public static final double AUTO_TRACK_WIDTH_METERS = Units.inchesToMeters(25);
 
-    public static final double AUTO_Ks = 0.85842;
-    public static final double AUTO_Kv = 2.778;
-    public static final double AUTO_Ka = 0.19846;
-    public static final double AUTO_Kp = 0.00017054;
+    public static final double AUTO_Ks = 0.58451;
+    public static final double AUTO_Kv = 3.3491;
+    public static final double AUTO_Ka = 0.24521;
+    public static final double AUTO_Kp = 0.0002099;
 
     public static final double AUTO_RAMSETE_B = 2;
     public static final double AUTO_RAMSETE_ZETA = 0.7;
