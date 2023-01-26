@@ -7,12 +7,13 @@ package frc.robot;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import frc.robot.commands.Drive_ArcadeDrive;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -47,6 +48,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand(Trajectory autoTrajectory) {
 
+    PIDController leftPID = new PIDController(Constants.AUTO_Kp_LEFT, 0, 0);
+    PIDController rightPID = new PIDController(Constants.AUTO_Kp_RIGHT, 0, 0);
+
     RamseteCommand ramseteCommand = new RamseteCommand(autoTrajectory, 
       drivetrain::getPose2d,
       new RamseteController(Constants.AUTO_RAMSETE_B, 
@@ -56,12 +60,14 @@ public class RobotContainer {
         Constants.AUTO_Ka), 
       Constants.AUTO_KINEMATICS, 
       drivetrain::getWheelSpeeds, 
-      new PIDController(Constants.AUTO_Kp, 0, 0), 
-      new PIDController(Constants.AUTO_Kp, 0, 0), 
+      leftPID, 
+      rightPID, 
       drivetrain::voltDrive, 
       drivetrain);
 
-      drivetrain.resetOdometry(autoTrajectory.getInitialPose());
+    Pose2d resetPose = new Pose2d(autoTrajectory.getInitialPose().getTranslation(), new Rotation2d(Math.PI));
+
+      drivetrain.resetOdometry(resetPose);
 
     return ramseteCommand.andThen(() -> drivetrain.voltDrive(0, 0));
   }

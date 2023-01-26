@@ -27,12 +27,14 @@ public final class Constants {
     public static final int DRIVETRAIN_GYRO = 15;
 
     // Auto Values
-    public static final double AUTO_TRACK_WIDTH_METERS = Units.inchesToMeters(25);
+    public static final double AUTO_TRACK_WIDTH_METERS = Units.inchesToMeters(25.85);
 
-    public static final double AUTO_Ks = 0.58451;
-    public static final double AUTO_Kv = 3.3491;
-    public static final double AUTO_Ka = 0.24521;
-    public static final double AUTO_Kp = 0.0002099;
+    public static final double AUTO_Ks = 0.56609;
+    public static final double AUTO_Kv = 3.4156;
+    public static final double AUTO_Ka = 0.12235;
+    public static final double AUTO_Kp_LEFT = 0.011616;
+    public static final double AUTO_Kp_RIGHT = 0.0016339;
+    public static final double AUTO_Kp_COMBINED = 0.00073215;
 
     public static final double AUTO_RAMSETE_B = 2;
     public static final double AUTO_RAMSETE_ZETA = 0.7;

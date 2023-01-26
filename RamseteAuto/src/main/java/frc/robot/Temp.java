@@ -54,6 +54,8 @@ Trajectory exampleTrajectory =
         config);
 
         
+PIDController leftPID = new PIDController(Constants.AUTO_Kp_LEFT, 0, 0);
+PIDController rightPID = new PIDController(Constants.AUTO_Kp_RIGHT, 0, 0);
 
 RamseteCommand ramseteCommand =
     new RamseteCommand(
@@ -66,8 +68,8 @@ RamseteCommand ramseteCommand =
             Constants.AUTO_Ka),
         Constants.AUTO_KINEMATICS,
         RobotContainer.drivetrain::getWheelSpeeds,
-        new PIDController(Constants.AUTO_Kp, 0, 0),
-        new PIDController(Constants.AUTO_Kp, 0, 0),
+        leftPID,
+        rightPID,
         // RamseteCommand passes volts to the callback
         RobotContainer.drivetrain::voltDrive,
         RobotContainer.drivetrain);
