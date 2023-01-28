@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private String pathString = "pathplanner/generatedJSON/StraightTest02.wpilib.json";
+  private String pathString = "pathplanner/generatedJSON/FunkyMonkey.wpilib.json";
   private Trajectory autoTrajectory = null;
 
   /**
@@ -85,11 +85,11 @@ public class Robot extends TimedRobot {
 
     // schedule the autonomous command (example)
 
-    Pose2d startPose = new Pose2d(autoTrajectory.getInitialPose().getTranslation(), new Rotation2d(Math.PI));
-    m_robotContainer.drivetrain.resetOdometry(startPose);
+    /* Pose2d startPose = new Pose2d(autoTrajectory.getInitialPose().getTranslation(), new Rotation2d(Math.PI));
+    m_robotContainer.drivetrain.resetOdometry(startPose); */
     //m_robotContainer.drivetrain.resetOdometry(new Pose2d());
 
-    m_robotContainer.drivetrain.resetGyro();
+    //m_robotContainer.drivetrain.resetGyro();
 
     if (!m_autonomousCommand.equals(null)) {
       m_autonomousCommand.schedule();

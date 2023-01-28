@@ -30,7 +30,7 @@ public class RobotContainer {
   public static XboxController driveController = new XboxController(0);
 
   public RobotContainer() {
-    drivetrain.setDefaultCommand(new Drive_Test(drivetrain, driveController));
+    drivetrain.setDefaultCommand(new Drive_ArcadeDrive(drivetrain, driveController));
 
     configureButtonBindings();
   }
@@ -67,9 +67,9 @@ public class RobotContainer {
       drivetrain::voltDrive, 
       drivetrain);
 
-    Pose2d resetPose = new Pose2d(autoTrajectory.getInitialPose().getTranslation(), new Rotation2d(Math.PI));
+    Pose2d startPose2d = new Pose2d(autoTrajectory.getInitialPose().getTranslation(), new Rotation2d(Math.PI));
 
-  drivetrain.resetOdometry(resetPose);
+    drivetrain.resetOdometry(autoTrajectory.getInitialPose());
 
     return ramseteCommand.andThen(() -> drivetrain.voltDrive(0, 0));
   }

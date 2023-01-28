@@ -37,6 +37,14 @@ public class Drivetrain extends SubsystemBase {
   DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
 
   public Drivetrain() {
+    leftMotorOne.configFactoryDefault();
+    leftMotorTwo.configFactoryDefault();
+    leftMotorThree.configFactoryDefault();
+
+    rightMotorOne.configFactoryDefault();
+    rightMotorTwo.configFactoryDefault();
+    rightMotorThree.configFactoryDefault();
+
     leftMotorOne.setNeutralMode(NeutralMode.Brake);
     leftMotorTwo.setNeutralMode(NeutralMode.Brake);
     leftMotorThree.setNeutralMode(NeutralMode.Brake);
@@ -45,8 +53,8 @@ public class Drivetrain extends SubsystemBase {
     rightMotorTwo.setNeutralMode(NeutralMode.Brake);
     rightMotorThree.setNeutralMode(NeutralMode.Brake);
 
-    leftMotors.setInverted(true);
-    rightMotors.setInverted(false);
+    leftMotors.setInverted(false);
+    rightMotors.setInverted(true);
 
     resetEncoders();
     resetGyro();
@@ -68,7 +76,7 @@ public class Drivetrain extends SubsystemBase {
 
     double distance = wheelRotations * Constants.ENCODER_WHEEL_CIRCUMFRENCE_METERS;
 
-    return -distance;
+    return distance;
   }
 
   public double leftEncoderVelocity(){
@@ -78,7 +86,7 @@ public class Drivetrain extends SubsystemBase {
 
     double metersPerSecond = rotationsPerSecond * Constants.ENCODER_WHEEL_CIRCUMFRENCE_METERS;
 
-    return -metersPerSecond;
+    return metersPerSecond;
   }
 
   public double rightEncoderPosition(){
@@ -88,7 +96,7 @@ public class Drivetrain extends SubsystemBase {
 
     double distance = wheelRotations * Constants.ENCODER_WHEEL_CIRCUMFRENCE_METERS;
 
-    return distance;
+    return -distance;
   }
 
   public double rightEncoderVelocity(){
@@ -98,7 +106,7 @@ public class Drivetrain extends SubsystemBase {
 
     double metersPerSecond = rotationsPerSecond * Constants.ENCODER_WHEEL_CIRCUMFRENCE_METERS;
 
-    return metersPerSecond;
+    return -metersPerSecond;
   }
 
   public void arcadeDrive(double move, double turn){
@@ -108,6 +116,9 @@ public class Drivetrain extends SubsystemBase {
   public void voltDrive(double leftVolts, double rightVolts){
     leftMotors.setVoltage(leftVolts);
     rightMotors.setVoltage(rightVolts);
+
+    SmartDashboard.putNumber("Left Volts", leftVolts);
+    SmartDashboard.putNumber("Right Volts", rightVolts);
 
     differentialDrive.feed();
   }
@@ -152,9 +163,9 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     odometry.update(gyro.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
 
-    SmartDashboard.putNumber("X", odometry.getPoseMeters().getX());
+/*     SmartDashboard.putNumber("X", odometry.getPoseMeters().getX());
     SmartDashboard.putNumber("Y", odometry.getPoseMeters().getY());
     SmartDashboard.putNumber("Left Encoder", leftEncoderPosition());
-    SmartDashboard.putNumber("Right Encoder", rightEncoderPosition());
+    SmartDashboard.putNumber("Right Encoder", rightEncoderPosition()); */
   }
 }
