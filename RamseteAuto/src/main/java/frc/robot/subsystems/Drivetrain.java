@@ -151,18 +151,10 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     odometry.update(gyro.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
-    if (DriverStation.isAutonomousEnabled()){
-      DriverStation.reportWarning("Odomemtry Updated", false);
-    }
 
-    SmartDashboard.putNumber("Gyro Rotation", gyro.getRotation2d().getDegrees());
-    SmartDashboard.putNumber("Odometry Rotation", odometry.getPoseMeters().getRotation().getDegrees());
     SmartDashboard.putNumber("X", odometry.getPoseMeters().getX());
     SmartDashboard.putNumber("Y", odometry.getPoseMeters().getY());
-
-    if (DriverStation.isAutonomousEnabled()){
-      DriverStation.reportWarning("ShuffleBoard Updated", false);
-    }
-
+    SmartDashboard.putNumber("Left Encoder", leftEncoderPosition());
+    SmartDashboard.putNumber("Right Encoder", rightEncoderPosition());
   }
 }

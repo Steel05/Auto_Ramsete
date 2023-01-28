@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import frc.robot.commands.Drive_ArcadeDrive;
+import frc.robot.commands.Drive_Test;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -28,7 +30,7 @@ public class RobotContainer {
   public static XboxController driveController = new XboxController(0);
 
   public RobotContainer() {
-    //drivetrain.setDefaultCommand(new Drive_ArcadeDrive(drivetrain, driveController));
+    drivetrain.setDefaultCommand(new Drive_Test(drivetrain, driveController));
 
     configureButtonBindings();
   }
@@ -48,8 +50,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand(Trajectory autoTrajectory) {
 
-    PIDController leftPID = new PIDController(Constants.AUTO_Kp_LEFT, 0, 0);
-    PIDController rightPID = new PIDController(Constants.AUTO_Kp_RIGHT, 0, 0);
+    PIDController leftPID = new PIDController(Constants.AUTO_Kp, 0, 0);
+    PIDController rightPID = new PIDController(Constants.AUTO_Kp, 0, 0);
 
     RamseteCommand ramseteCommand = new RamseteCommand(autoTrajectory, 
       drivetrain::getPose2d,
@@ -67,7 +69,7 @@ public class RobotContainer {
 
     Pose2d resetPose = new Pose2d(autoTrajectory.getInitialPose().getTranslation(), new Rotation2d(Math.PI));
 
-      drivetrain.resetOdometry(resetPose);
+  drivetrain.resetOdometry(resetPose);
 
     return ramseteCommand.andThen(() -> drivetrain.voltDrive(0, 0));
   }

@@ -54,8 +54,8 @@ Trajectory exampleTrajectory =
         config);
 
         
-PIDController leftPID = new PIDController(Constants.AUTO_Kp_LEFT, 0, 0);
-PIDController rightPID = new PIDController(Constants.AUTO_Kp_RIGHT, 0, 0);
+PIDController leftPID = new PIDController(Constants.AUTO_Kp, 0, 0);
+PIDController rightPID = new PIDController(Constants.AUTO_Kp, 0, 0);
 
 RamseteCommand ramseteCommand =
     new RamseteCommand(

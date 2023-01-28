@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -27,7 +28,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private String pathString = "paths/STEMinism.wpilib.json";
+  private String pathString = "pathplanner/generatedJSON/StraightTest02.wpilib.json";
   private Trajectory autoTrajectory = null;
 
   /**
@@ -84,8 +85,11 @@ public class Robot extends TimedRobot {
 
     // schedule the autonomous command (example)
 
-    m_robotContainer.drivetrain.resetOdometry(autoTrajectory.getInitialPose());
+    Pose2d startPose = new Pose2d(autoTrajectory.getInitialPose().getTranslation(), new Rotation2d(Math.PI));
+    m_robotContainer.drivetrain.resetOdometry(startPose);
     //m_robotContainer.drivetrain.resetOdometry(new Pose2d());
+
+    m_robotContainer.drivetrain.resetGyro();
 
     if (!m_autonomousCommand.equals(null)) {
       m_autonomousCommand.schedule();

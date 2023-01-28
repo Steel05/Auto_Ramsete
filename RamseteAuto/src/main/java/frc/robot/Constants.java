@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+//import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -26,15 +27,17 @@ public final class Constants {
 
     public static final int DRIVETRAIN_GYRO = 15;
 
+    // Chassis Values
+    public static final double CHASSIS_MAX_POSSIBLE_VELOCITY = 0.8 * (319 * Units.inchesToMeters(6) * Math.PI) / 45.9;
+    public static final double CHASSIS_MAX_POSSIBLE_ACCELERATION = 0.8 * (12 * 4.69 * 15.3) / (Units.lbsToKilograms(125.4) * Units.inchesToMeters(6));
+
     // Auto Values
     public static final double AUTO_TRACK_WIDTH_METERS = Units.inchesToMeters(25.85);
 
-    public static final double AUTO_Ks = 0.56609;
-    public static final double AUTO_Kv = 3.4156;
-    public static final double AUTO_Ka = 0.12235;
-    public static final double AUTO_Kp_LEFT = 0.011616;
-    public static final double AUTO_Kp_RIGHT = 0.0016339;
-    public static final double AUTO_Kp_COMBINED = 0.00073215;
+    public static final double AUTO_Ks = 0.56344;
+    public static final double AUTO_Kv = 3.4377;
+    public static final double AUTO_Ka = 0.22455;
+    public static final double AUTO_Kp = 0.011616;
 
     public static final double AUTO_RAMSETE_B = 2;
     public static final double AUTO_RAMSETE_ZETA = 0.7;
@@ -44,5 +47,5 @@ public final class Constants {
     // Encoder Values
     public static final double ENCODER_PULSES_PER_ROT = 2048;
     public static final double ENCODER_GEARING_MOTOR_TO_WHEEL = 15.3;
-    public static final double ENCODER_WHEEL_CIRCUMFRENCE_METERS = 0.0762 * 2 * Math.PI;
+    public static final double ENCODER_WHEEL_CIRCUMFRENCE_METERS = Units.inchesToMeters(6) * Math.PI;
 }
